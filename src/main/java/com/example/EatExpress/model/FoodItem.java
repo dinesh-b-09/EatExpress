@@ -1,5 +1,6 @@
 package com.example.EatExpress.model;
 
+import com.example.EatExpress.Enum.FoodCategory;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -18,11 +19,9 @@ public class FoodItem
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         int id;
 
-
         int requiredQuantity;
 
-
-        double totalCost;
+        double totalCost;   // will be calculated backend
 
 
         @ManyToOne
@@ -33,6 +32,7 @@ public class FoodItem
         @ManyToOne
         @JoinColumn
         Menu menu;
+
 
 
         @ManyToOne

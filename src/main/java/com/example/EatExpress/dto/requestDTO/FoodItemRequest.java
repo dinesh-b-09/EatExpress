@@ -1,4 +1,4 @@
-package com.example.EatExpress.dto.responseDTO;
+package com.example.EatExpress.dto.requestDTO;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -8,9 +8,12 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Data
 @Builder
-public class FoodResponse
+public class FoodItemRequest
 {
     int requiredQuantity;
 
-    double totalCost;
+    String customerMobile;
+
+    int menuId;
+
 }

@@ -1,6 +1,6 @@
 package com.example.EatExpress.dto.responseDTO;
 
-import com.example.EatExpress.Enum.Gender;
+import com.example.EatExpress.Enum.RestaurantCategory;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -11,21 +11,17 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Builder
-public class CustomerResponse
+public class RestaurantResponse
 {
-
     String name;
 
-    String email;
+    String location;
 
-    String address;
+    RestaurantCategory restaurantCategory;
 
-    String mobileNo;
+    String contactNumber;
 
-    Gender gender;
+    boolean opened;
 
-    double cartTotal;
-
-    List<MenuResponse> foodItems;
-
+    List<MenuResponse> menu;
 }

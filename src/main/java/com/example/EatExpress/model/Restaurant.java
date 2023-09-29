@@ -43,7 +43,7 @@ public class Restaurant
 
 
         @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
-        List<Menu> availableFoodItems = new ArrayList<>();
+        List<Menu> availableMenuItems = new ArrayList<>();
 
 
         @OneToMany(mappedBy = "restaurant" ,cascade = CascadeType.ALL)

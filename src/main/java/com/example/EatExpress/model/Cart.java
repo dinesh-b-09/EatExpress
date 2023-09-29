@@ -22,7 +22,7 @@ public class Cart
         int id;
 
 
-        int cartTotal;
+        double cartTotal;
 
 
         @OneToOne

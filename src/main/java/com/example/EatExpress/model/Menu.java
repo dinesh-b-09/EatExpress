@@ -23,7 +23,7 @@ public class Menu
         int id;
 
 
-        String dishName;
+       String dishName;
 
 
         double price;
@@ -46,4 +46,6 @@ public class Menu
 
         @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL)
         List<FoodItem> foodItems = new ArrayList<>();
+
+
 }

@@ -3,6 +3,7 @@ package com.example.EatExpress.model;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,6 +27,10 @@ public class OrderEntity
         String orderId;   // UUID
 
 
+        double orderTotal;
+
+
+        @CreationTimestamp
         Date orderTime;
 
 

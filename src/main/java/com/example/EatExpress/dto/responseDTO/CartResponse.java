@@ -12,8 +12,18 @@ import java.util.List;
 @Builder
 public class CartResponse
 {
-    int cartTotal;
+    String customerName;
+
+    String customerAddress;
+
+    String customerMobile;
+
+    double cartTotal;
+
+    String restaurantName;
+
+    List<FoodItemResponse> foodList;
 
 
-    List<FoodResponse> foodItems;
+
 }
