@@ -1,5 +1,6 @@
 package com.example.EatExpress.service;
 
+import com.example.EatExpress.Enum.Gender;
 import com.example.EatExpress.dto.requestDTO.CustomerRequest;
 import com.example.EatExpress.dto.responseDTO.CustomerResponse;
 import com.example.EatExpress.exception.CustomerNotFoundException;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -72,5 +74,46 @@ public class CustomerService
         Customer customer = customerRepository.findByMobileNo(mobile).get();
 
         return CustomerTransformer.CustomerToCustomerResponse(customer);
+    }
+
+    public String getCustomerWithMaxOrders()
+    {
+//        List<Customer> customerList = customerRepository.findAll();
+//        int max = 0;
+//        String customerWithMaxOrders="";
+//        for(Customer customer : customerList)
+//        {
+//            int count = customer.getOrders().size();
+//
+//            if(count > max)
+//            {
+//                max= count;
+//                customerWithMaxOrders = customer.getName();
+//            }
+//        }
+//        System.out.println(max);
+//        return customerWithMaxOrders;
+
+        Customer customer = customerRepository.findCustomerWithMostOrders();
+
+        if(customer != null)
+        {
+            return customer.getName();
+        }
+
+        return "customers didn't order or customers may have equal number of orders";
+    }
+
+    public String getFemaleWithLeastOrders()
+    {
+
+        List<Customer> femaleCustomers = customerRepository.findFemaleCustomerWithLeastOrders(Gender.FEMALE);
+
+        if (!femaleCustomers.isEmpty())
+        {
+            return femaleCustomers.get(0).getName(); // first female customer has the least orders
+        }
+
+        return "No female customers didn't order or customers may have equal number of orders"; // No female customers found
     }
 }

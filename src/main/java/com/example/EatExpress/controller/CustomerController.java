@@ -57,8 +57,20 @@ public class CustomerController
     }
 
     // get the customer with most number of orders
+    @GetMapping("/most/orders")
+    public ResponseEntity getCustomerWithMaxOrders()
+    {
+        String response = customerService.getCustomerWithMaxOrders();
+        return new ResponseEntity(response, HttpStatus.FOUND);
+    }
 
     // get the female customer with least number of orders
+    @GetMapping("/female/least/orders")
+    public ResponseEntity getFemaleWithLeastOrders()
+    {
+        String response = customerService.getFemaleWithLeastOrders();
+        return new ResponseEntity(response, HttpStatus.FOUND);
+    }
 
 
 

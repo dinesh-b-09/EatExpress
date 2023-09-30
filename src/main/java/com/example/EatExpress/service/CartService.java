@@ -10,6 +10,7 @@ import com.example.EatExpress.repository.CartRepository;
 import com.example.EatExpress.repository.CustomerRepository;
 import com.example.EatExpress.repository.FoodItemRepository;
 import com.example.EatExpress.repository.MenuRepository;
+import com.example.EatExpress.transformer.CartTransformer;
 import com.example.EatExpress.transformer.FoodItemTransformer;
 import com.example.EatExpress.utils.ValidationUtils;
 import org.springframework.stereotype.Service;
@@ -132,14 +133,10 @@ public class CartService
             foodResponseList.add(FoodItemTransformer.FoodItemToFoodItemResponse(food));
         }
 
+        // model --> responseDto
+        return CartTransformer.CartToCartResponse(savedCart,foodResponseList,savedMenuItem,cartTotal);
 
-        return CartResponse.builder()
-                .customerName(savedCart.getCustomer().getName())
-                .customerMobile(savedCart.getCustomer().getMobileNo())
-                .customerAddress(savedCart.getCustomer().getAddress())
-                .foodList(foodResponseList)
-                .restaurantName(savedMenuItem.getRestaurant().getName())
-                .cartTotal(cartTotal)
-                .build();
     }
+
+
 }
