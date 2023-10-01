@@ -6,10 +6,7 @@ import com.example.EatExpress.service.DeliveryPartnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/partner")
@@ -31,6 +28,12 @@ public class DeliveryPartnerController
     }
 
     // give delivery partner with highest number of deliveries
+    @GetMapping("/max/deliveries")
+    public ResponseEntity partnerWithMaxDeliveries()
+    {
+        String response = deliveryPartnerService.partnerWithMaxDeliveries();
+        return new ResponseEntity(response, HttpStatus.FOUND);
+    }
 
     // send an email to all the partners who have done less than 10 deliveries.
 }

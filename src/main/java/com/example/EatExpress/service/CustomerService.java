@@ -114,6 +114,7 @@ public class CustomerService
             return femaleCustomers.get(0).getName(); // first female customer has the least orders
         }
 
-        return "No female customers didn't order or customers may have equal number of orders"; // No female customers found
+        return "No female customers didn't order or " +
+                "customers may have equal number of orders"; // No female customers found
     }
 }

@@ -1,5 +1,7 @@
 package com.example.EatExpress.utils;
 
+import com.example.EatExpress.Enum.FoodCategory;
+import com.example.EatExpress.Enum.RestaurantCategory;
 import com.example.EatExpress.model.Customer;
 import com.example.EatExpress.model.Menu;
 import com.example.EatExpress.model.Restaurant;
