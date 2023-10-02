@@ -21,4 +21,10 @@ public interface DeliveryPartnerRepository extends JpaRepository<DeliveryPartner
     @Query("SELECT dp FROM DeliveryPartner dp WHERE SIZE(dp.orders) = (SELECT MAX(SIZE(dp1.orders)) FROM DeliveryPartner dp1)")
     DeliveryPartner findPartnerHighestDeliveries();
 
+
+    @Query("SELECT dp FROM DeliveryPartner dp WHERE (SELECT COUNT(o) FROM OrderEntity o WHERE o.deliveryPartner = dp) <= :x")
+    List<DeliveryPartner> findDeliveryPartnersWithLessThanXDeliveries(int x);
+
+
+
 }

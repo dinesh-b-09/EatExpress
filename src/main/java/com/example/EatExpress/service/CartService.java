@@ -13,6 +13,7 @@ import com.example.EatExpress.repository.MenuRepository;
 import com.example.EatExpress.transformer.CartTransformer;
 import com.example.EatExpress.transformer.FoodItemTransformer;
 import com.example.EatExpress.utils.ValidationUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class CartService
 
     final CartRepository cartRepository;
 
+    @Autowired
     public CartService(CustomerRepository customerRepository, ValidationUtils validationUtils, MenuRepository menuRepository, FoodItemRepository foodItemRepository, CartRepository cartRepository) {
         this.customerRepository = customerRepository;
         this.validationUtils = validationUtils;

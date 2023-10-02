@@ -24,7 +24,8 @@ public class OrderService
     final DeliveryPartnerRepository deliveryPartnerRepository;
 
     final ValidationUtils validationUtils;
-    private final RestaurantRepository restaurantRespository;
+
+    final RestaurantRepository restaurantRespository;
 
     @Autowired
     public OrderService(CustomerRepository customerRepository,

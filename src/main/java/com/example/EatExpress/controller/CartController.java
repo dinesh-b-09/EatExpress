@@ -3,6 +3,7 @@ package com.example.EatExpress.controller;
 import com.example.EatExpress.dto.requestDTO.FoodItemRequest;
 import com.example.EatExpress.dto.responseDTO.CartResponse;
 import com.example.EatExpress.service.CartService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ public class CartController
 
     final CartService cartService;
 
+    @Autowired
     public CartController(CartService cartService) {
         this.cartService = cartService;
     }

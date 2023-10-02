@@ -11,3 +11,6 @@ public class EatExpressApplication {
 	}
 
 }
+
+//swagger
+//localhost:8080/swagger-ui/index.html#

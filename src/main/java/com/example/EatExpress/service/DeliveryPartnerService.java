@@ -2,13 +2,15 @@ package com.example.EatExpress.service;
 
 import com.example.EatExpress.dto.requestDTO.DeliveryPartnerRequest;
 import com.example.EatExpress.dto.responseDTO.DeliveryPartnerResponse;
-import com.example.EatExpress.model.Customer;
 import com.example.EatExpress.model.DeliveryPartner;
 import com.example.EatExpress.repository.DeliveryPartnerRepository;
 import com.example.EatExpress.transformer.DeliveryPartnerTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,9 +18,12 @@ public class DeliveryPartnerService
 {
     final DeliveryPartnerRepository deliveryPartnerRepository;
 
+    final JavaMailSender javaMailSender;
+
     @Autowired
-    public DeliveryPartnerService(DeliveryPartnerRepository deliveryPartnerRepository) {
+    public DeliveryPartnerService(DeliveryPartnerRepository deliveryPartnerRepository, JavaMailSender javaMailSender) {
         this.deliveryPartnerRepository = deliveryPartnerRepository;
+        this.javaMailSender = javaMailSender;
     }
 
     public DeliveryPartnerResponse addPartner(DeliveryPartnerRequest deliveryPartnerRequest)
@@ -59,6 +64,50 @@ public class DeliveryPartnerService
             return partner.getName();
         }
 
-        return "Delivery Partner did not deliver any order to the customers";
+        return "No Delivery Partner did not deliver any orders to the customers";
+    }
+
+    public List<DeliveryPartnerResponse> getsendEmailsToPartnersWithLessThanXDeliveries(int x)
+    {
+        List<DeliveryPartner> partnerList = deliveryPartnerRepository.findDeliveryPartnersWithLessThanXDeliveries(x);
+
+        //  send an email
+//        String text = "Hi! " + student.getName() + " The below book has been issued to you\n" +
+//                book.getTitle() + " \nThis is the transaction number: "+savedTransaction.getTransactionNo();
+//
+//        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+//        simpleMailMessage.setFrom("dumyacc1233@gmail.com");
+//        simpleMailMessage.setTo(student.getEmail());
+//        simpleMailMessage.setSubject("Congrats!! Book Issued");
+//        simpleMailMessage.setText(text);
+//
+//        javaMailSender.send(simpleMailMessage);
+
+
+        for (DeliveryPartner partner : partnerList)
+        {
+            String text = "Dear " + partner.getName() + ",\n\n"
+                    + "You have done less than 10 deliveries. Please take action.\n\n"
+                    + "Regards,\n"
+                    + "Dinesh.\n"
+                    + "Programmer Analyst @Cognizant.";
+
+            SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+            simpleMailMessage.setFrom("dumyacc1233@gmail.com");
+            simpleMailMessage.setTo("vbcn12@gmail.com");
+            simpleMailMessage.setSubject("Action Required: Low Delivery Count");
+            simpleMailMessage.setText(text);
+
+            javaMailSender.send(simpleMailMessage);
+        }
+
+        List<DeliveryPartnerResponse> list= new ArrayList<>();
+
+        for(DeliveryPartner partner : partnerList)
+        {
+            list.add(DeliveryPartnerTransformer.DeliveryPartnertoDeliveryPartnerResponse(partner));
+        }
+
+        return list;
     }
 }

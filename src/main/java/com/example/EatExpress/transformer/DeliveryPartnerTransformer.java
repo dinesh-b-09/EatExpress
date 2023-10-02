@@ -16,6 +16,7 @@ public class DeliveryPartnerTransformer
                 .name(deliveryPartnerRequest.getName())
                 .mobileNo(deliveryPartnerRequest.getMobileNo())
                 .gender(deliveryPartnerRequest.getGender())
+                .email(deliveryPartnerRequest.getEmail())
                 .orders(new ArrayList<>())
                 .build();
     }
@@ -27,6 +28,7 @@ public class DeliveryPartnerTransformer
                 .name(deliveryPartner.getName())
                 .mobileNo(deliveryPartner.getMobileNo())
                 .gender(deliveryPartner.getGender())
+                .email(deliveryPartner.getEmail())
                 .build();
     }
 

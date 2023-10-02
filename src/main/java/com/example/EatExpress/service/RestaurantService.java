@@ -2,6 +2,7 @@ package com.example.EatExpress.service;
 
 import com.example.EatExpress.dto.requestDTO.MenuRequest;
 import com.example.EatExpress.dto.requestDTO.RestaurantRequest;
+import com.example.EatExpress.dto.responseDTO.MenuResponse;
 import com.example.EatExpress.dto.responseDTO.RestaurantResponse;
 import com.example.EatExpress.exception.CustomerNotFoundException;
 import com.example.EatExpress.exception.RestaurantNotFoundException;
@@ -15,6 +16,8 @@ import com.example.EatExpress.utils.ValidationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -107,4 +110,70 @@ public class RestaurantService
 
 
     }
+
+    public List<MenuResponse> getMenuOfARestauarant(int restaurantId)
+    {
+        //check whether resto id is valid or not
+        if(!validationUtils.validateRestaurantId(restaurantId))
+        {
+            throw new RestaurantNotFoundException("Restaurant doesn't exist!!");
+        }
+        Restaurant restaurant = restaurantRepository.findById(restaurantId).get();
+
+        List<Menu> menuList = restaurant.getAvailableMenuItems();
+
+        List<MenuResponse> list = new ArrayList<>();
+
+        for(Menu menu : menuList)
+        {
+            list.add(MenuTransformer.MenuToMenuResponse(menu));
+        }
+        return list;
+    }
+
+    public List<RestaurantResponse> getAllRestaurantsWhoServedXOrders(int x)
+    {
+        List<Restaurant> restaurantList = restaurantRepository.findByOrder(x);
+
+        List<RestaurantResponse> list = new ArrayList<>();
+
+        for(Restaurant restaurant : restaurantList)
+        {
+            list.add(RestaurantTransformer.RestaurantToRestuarantResponse(restaurant));
+        }
+        return list;
+    }
+
+    public List<RestaurantResponse> getAllRestaurantsWithMaxItemsAndOpened()
+    {
+        List<Restaurant> openedRestaurant = restaurantRepository.findByOpened(true);
+
+        int maxmenu = -1;
+
+        List<RestaurantResponse> list = new ArrayList<>();
+
+        // Calculate the maximum menu item count
+        for(Restaurant restaurant : openedRestaurant)
+        {
+            int menusize = restaurant.getAvailableMenuItems().size();
+
+            if(menusize > maxmenu)
+            {
+                maxmenu = menusize;
+            }
+        }
+
+        // Filter restaurants with the maximum menu item count
+        for(Restaurant restaurant : openedRestaurant)
+        {
+            int menusize = restaurant.getAvailableMenuItems().size();
+            if(menusize == maxmenu)
+            {
+                list.add(RestaurantTransformer.RestaurantToRestuarantResponse(restaurant));
+            }
+        }
+        return list;
+
+    }
+
 }

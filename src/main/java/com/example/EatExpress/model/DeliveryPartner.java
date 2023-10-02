@@ -2,6 +2,7 @@ package com.example.EatExpress.model;
 
 import com.example.EatExpress.Enum.Gender;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -26,6 +27,9 @@ public class DeliveryPartner
 
         String name;
 
+        @Email
+        @Column(unique = true)
+        String email;
 
         @Column(unique = true, nullable = false)
         @Size(min = 10, max = 10)

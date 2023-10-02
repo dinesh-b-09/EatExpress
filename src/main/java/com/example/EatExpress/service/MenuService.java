@@ -9,6 +9,7 @@ import com.example.EatExpress.model.Restaurant;
 import com.example.EatExpress.repository.MenuRepository;
 import com.example.EatExpress.repository.RestaurantRepository;
 import com.example.EatExpress.utils.ValidationUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class MenuService
 
     final RestaurantRepository restaurantRepository;
 
+    @Autowired
     public MenuService(MenuRepository menuRepository, ValidationUtils validationUtils, RestaurantRepository restaurantRepository) {
         this.menuRepository = menuRepository;
         this.validationUtils = validationUtils;
@@ -168,7 +170,7 @@ public class MenuService
         }
         Restaurant restaurant = restaurantRepository.findById(restoId).get();
 
-        // let the costliest price of food item be 120
+        // lets say the costliest price of food items be 120 and above
         List<Menu> menuList = menuRepository.findByPriceGreaterThanAndRestaurant_Id(120.0, restoId);
         List<CostliestFoodResponse> list = new ArrayList<>();
 
@@ -193,17 +195,24 @@ public class MenuService
         }
         Restaurant restaurant = restaurantRepository.findById(restoId).get();
 
-        List<Menu> menuList = menuRepository.findByPriceGreaterThanAndCategoryAndRestaurant_Id(120.0, restoId, category);
+        List<Menu> menuList = menuRepository.findByCategory(category);
+
         List<CostliestFoodResponse> list = new ArrayList<>();
+
+        // lets say costliest price of food items be 120 and above
 
         for(Menu menu : menuList)
         {
-            CostliestFoodResponse response = CostliestFoodResponse.builder()
-                    .dishName(menu.getDishName())
-                    .price(menu.getPrice())
-                    .isVeg(menu.isVeg())
-                    .build();
-            list.add(response);
+            if(menu.getPrice() >= 120)
+            {
+                CostliestFoodResponse response = CostliestFoodResponse.builder()
+                        .dishName(menu.getDishName())
+                        .price(menu.getPrice())
+                        .isVeg(menu.isVeg())
+                        .build();
+                list.add(response);
+            }
+
         }
         return list;
 

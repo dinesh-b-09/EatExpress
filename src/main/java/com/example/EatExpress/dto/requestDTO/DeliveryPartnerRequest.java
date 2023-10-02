@@ -16,4 +16,6 @@ public class DeliveryPartnerRequest
     String mobileNo;
 
     Gender gender;
+
+    String email;
 }

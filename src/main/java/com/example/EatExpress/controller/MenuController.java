@@ -4,6 +4,7 @@ import com.example.EatExpress.Enum.FoodCategory;
 import com.example.EatExpress.dto.responseDTO.CheapFoodResponse;
 import com.example.EatExpress.dto.responseDTO.CostliestFoodResponse;
 import com.example.EatExpress.service.MenuService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ public class MenuController
 
     final MenuService menuService;
 
+    @Autowired
     public MenuController(MenuService menuService) {
         this.menuService = menuService;
     }

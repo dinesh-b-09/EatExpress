@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/partner")
 public class DeliveryPartnerController
@@ -35,5 +37,16 @@ public class DeliveryPartnerController
         return new ResponseEntity(response, HttpStatus.FOUND);
     }
 
+
     // send an email to all the partners who have done less than 10 deliveries.
+    @GetMapping("/send/emails/for/less/deliveries")
+    public ResponseEntity getsendEmailsToPartnersWithLessThanXDeliveries(@RequestParam("x") int x)
+    {
+        List<DeliveryPartnerResponse> responseList = deliveryPartnerService
+                .getsendEmailsToPartnersWithLessThanXDeliveries(x);
+        return new ResponseEntity(responseList, HttpStatus.FOUND);
+    }
+
+
+
 }
