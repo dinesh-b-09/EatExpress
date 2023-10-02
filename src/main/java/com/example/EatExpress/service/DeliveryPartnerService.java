@@ -76,8 +76,8 @@ public class DeliveryPartnerService
             String text = "Dear " + partner.getName() + ",\n\n"
                     + "You have done less than 10 deliveries. Please take action.\n\n"
                     + "Regards,\n"
-                    + "Dinesh.\n"
-                    + "Programmer Analyst @Cognizant.";
+                    + "Jon Snow.\n"
+                    + "CEO of Game of Thrones.";
 
             SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
             simpleMailMessage.setFrom("dumyacc1233@gmail.com");
