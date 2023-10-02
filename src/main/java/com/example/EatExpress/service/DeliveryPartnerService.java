@@ -71,19 +71,6 @@ public class DeliveryPartnerService
     {
         List<DeliveryPartner> partnerList = deliveryPartnerRepository.findDeliveryPartnersWithLessThanXDeliveries(x);
 
-        //  send an email
-//        String text = "Hi! " + student.getName() + " The below book has been issued to you\n" +
-//                book.getTitle() + " \nThis is the transaction number: "+savedTransaction.getTransactionNo();
-//
-//        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-//        simpleMailMessage.setFrom("dumyacc1233@gmail.com");
-//        simpleMailMessage.setTo(student.getEmail());
-//        simpleMailMessage.setSubject("Congrats!! Book Issued");
-//        simpleMailMessage.setText(text);
-//
-//        javaMailSender.send(simpleMailMessage);
-
-
         for (DeliveryPartner partner : partnerList)
         {
             String text = "Dear " + partner.getName() + ",\n\n"
